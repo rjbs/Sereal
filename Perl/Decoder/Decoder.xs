@@ -502,3 +502,15 @@ bytes_consumed(dec)
   CODE:
     RETVAL = dec->bytes_consumed;
   OUTPUT: RETVAL
+
+MODULE = Sereal::Decoder        PACKAGE = Sereal::Decoder::Test
+void
+is_nv(sv)
+    SV *sv
+PROTOTYPE: $
+CODE:
+    if(SvMAGICAL(sv))
+        mg_get(sv);
+
+    ST(0) = boolSV(SvNOK(sv) && !(SvNOK(sv) && SvIOK(sv) && SvPOK(sv)));
+    XSRETURN(1);
